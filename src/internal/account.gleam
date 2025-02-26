@@ -29,7 +29,7 @@ pub type Account {
 fn basic_decoder() -> Decoder(Account) {
   use address <- decode.field("address", decode.string)
   use balance <- decode.field("balance", decode.int)
-  decode.success(Basic(address, balance))
+  decode.success(Basic(address:, balance:))
 }
 
 fn vesting_decoder() -> Decoder(Account) {
@@ -41,13 +41,13 @@ fn vesting_decoder() -> Decoder(Account) {
   use time_step <- decode.field("vestingTimeStep", decode.int)
   use total_amount <- decode.field("vestingTotalAmount", decode.int)
   decode.success(Vesting(
-    address,
-    balance,
-    owner,
-    start_time,
-    step_amount,
-    time_step,
-    total_amount,
+    address:,
+    balance:,
+    owner:,
+    start_time:,
+    step_amount:,
+    time_step:,
+    total_amount:,
   ))
 }
 
@@ -61,26 +61,25 @@ fn htlc_decoder() -> Decoder(Account) {
   use timeout <- decode.field("timeout", decode.int)
   use total_amount <- decode.field("totalAmount", decode.int)
   decode.success(HTLC(
-    address,
-    balance,
-    hash_count,
-    hash_root,
-    recipient,
-    sender,
-    timeout,
-    total_amount,
+    address:,
+    balance:,
+    hash_count:,
+    hash_root:,
+    recipient:,
+    sender:,
+    timeout:,
+    total_amount:,
   ))
 }
 
 fn staking_decoder() -> Decoder(Account) {
   use address <- decode.field("address", decode.string)
   use balance <- decode.field("balance", decode.int)
-  decode.success(Staking(address, balance))
+  decode.success(Staking(address:, balance:))
 }
 
 pub fn decoder() -> Decoder(Account) {
   use typ <- decode.field("type", decode.string)
-
   case typ {
     "basic" -> basic_decoder()
     "vesting" -> vesting_decoder()
