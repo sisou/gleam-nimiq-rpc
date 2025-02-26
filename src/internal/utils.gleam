@@ -40,7 +40,7 @@ fn readable_error(
         <> " but found "
         <> err.found
         <> " at "
-        <> err.path |> list.first() |> result.unwrap("root")
+        <> err.path |> string.join(".")
       })
       |> string.join(", ")
     }

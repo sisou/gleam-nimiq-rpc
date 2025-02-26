@@ -11,10 +11,10 @@ pub fn decoder() -> Decoder(Hash) {
   use algorithm <- decode.field("algorithm", decode.string)
   use hash <- decode.field("hash", decode.string)
   case algorithm {
-    "blake2b" -> decode.success(Blake2b(hash))
-    "argon2d" -> decode.success(Argon2d(hash))
-    "sha256" -> decode.success(Sha256(hash))
-    "sha512" -> decode.success(Sha512(hash))
+    "blake2b" -> decode.success(Blake2b(hash:))
+    "argon2d" -> decode.success(Argon2d(hash:))
+    "sha256" -> decode.success(Sha256(hash:))
+    "sha512" -> decode.success(Sha512(hash:))
     _ -> decode.failure(Blake2b(""), "Hash")
   }
 }
