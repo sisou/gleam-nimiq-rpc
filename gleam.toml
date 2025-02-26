@@ -14,10 +14,6 @@ gleam = ">= 1.8.0"
 # For a full reference of all the available options, you can have a look at
 # https://gleam.run/writing-gleam/gleam-toml/.
 
-internal_modules = [
-  "nimiq_rpc/dispatchers/utils"
-]
-
 [dependencies]
 gleam_erlang = ">= 0.34.0 and < 1.0.0"
 gleam_http = ">= 4.0.0 and < 5.0.0"
@@ -26,5 +22,7 @@ gleam_json = ">= 2.3.0 and < 3.0.0"
 gleam_otp = ">= 0.16.1 and < 1.0.0"
 gleam_stdlib = ">= 0.44.0 and < 2.0.0"
 
-# fiber = { git = "https://github.com/sisou/gleam-fiber.git", ref = "2b173e852b2b7c004097e5adf14e029329cfb05c" }
+dotenv_gleam = ">= 1.0.7 and < 2.0.0"
+envoy = ">= 1.0.2 and < 2.0.0"
+# fiber = { git = "https://github.com/sisou/gleam-fiber.git", ref = "a47d1a7901051722ccf4012615be56dd6a0f76fc" }
 fiber = { path = "../gleam-fiber" }

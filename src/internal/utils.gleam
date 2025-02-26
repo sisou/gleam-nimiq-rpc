@@ -1,4 +1,5 @@
 import gleam/dynamic.{type Dynamic}
+import gleam/dynamic/decode.{type Decoder}
 import gleam/erlang/process
 import gleam/int
 import gleam/list
@@ -18,7 +19,7 @@ fn readable_error(
     fiber.ReturnedError(message.ErrorData(data, code, message)) -> {
       let data = case data {
         Some(data) ->
-          case data |> dynamic.string() {
+          case decode.run(data, decode.string) {
             Ok(data) -> Some(data)
             Error(_) -> None
           }
@@ -56,8 +57,7 @@ pub fn call(
   fiber.call(fiber, req, timeout) |> result.map_error(readable_error)
 }
 
-pub fn unwrap_result(
-  decoder: fn(Dynamic) -> Result(a, List(dynamic.DecodeError)),
-) -> fn(Dynamic) -> Result(a, List(dynamic.DecodeError)) {
-  dynamic.field("data", decoder)
+pub fn unwrap_data(decoder: Decoder(a)) -> Decoder(a) {
+  use data <- decode.field("data", decoder)
+  decode.success(data)
 }

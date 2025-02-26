@@ -1,17 +1,29 @@
-import dispatchers/blockchain
 import gleam/io
-import nimiq_rpc
+
+import dotenv_gleam
+import envoy
+
+import blockchain
+import nimiq_rpc.{type Client}
+
+fn get_heights(client: Client) {
+  let assert Ok(height) = client |> blockchain.get_block_number(timeout: 1000)
+  io.debug(height)
+  // let assert Ok(batch) = client |> blockchain.get_batch_number(timeout: 1000)
+  // io.debug(batch)
+
+  // let assert Ok(epoch) = client |> blockchain.get_epoch_number(timeout: 1000)
+  // io.debug(epoch)
+}
 
 pub fn main() {
-  let client =
-    nimiq_rpc.client_with_auth("https://rpc.pos.v2.test.nimiqwatch.com", "", "")
+  dotenv_gleam.config_with("src/example/.env")
 
-  let height = client |> blockchain.get_block_number(timeout: 1000)
-  io.debug(height)
+  let assert Ok(url) = envoy.get("RPC_URL")
+  let assert Ok(username) = envoy.get("RPC_USERNAME")
+  let assert Ok(password) = envoy.get("RPC_PASSWORD")
 
-  let batch = client |> blockchain.get_batch_number(timeout: 1000)
-  io.debug(batch)
+  let client = nimiq_rpc.client_with_auth(url, username, password)
 
-  let epoch = client |> blockchain.get_epoch_number(timeout: 1000)
-  io.debug(epoch)
+  get_heights(client)
 }
