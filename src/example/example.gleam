@@ -8,7 +8,7 @@ import internal/account
 import nimiq_rpc.{type Client}
 
 fn get_heights(client: Client) {
-  let assert Ok(height) = client |> blockchain.get_block_number(timeout: 1000)
+  let assert Ok(height) = client |> blockchain.get_block_number()
   io.debug(height)
   // let assert Ok(batch) = client |> blockchain.get_batch_number(timeout: 1000)
   // io.debug(batch)
@@ -22,7 +22,6 @@ fn get_accounts(client: Client) {
     client
     |> blockchain.get_account_by_address(
       "NQ07 0000 0000 0000 0000 0000 0000 0000 0000",
-      timeout: 1000,
     )
   let _ = case basic_account {
     account.Basic(..) -> {

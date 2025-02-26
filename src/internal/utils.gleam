@@ -52,9 +52,8 @@ fn readable_error(
 pub fn call(
   fiber: backend.Fiber,
   req: fiber_request.Request(a),
-  timeout timeout: Int,
 ) -> Result(a, String) {
-  fiber.call(fiber, req, timeout) |> result.map_error(readable_error)
+  fiber.call(fiber, req, 5000) |> result.map_error(readable_error)
 }
 
 pub fn unwrap_data(decoder: Decoder(a)) -> Decoder(a) {
