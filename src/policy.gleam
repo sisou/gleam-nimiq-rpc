@@ -75,7 +75,10 @@ pub fn get_policy_constants(client: Client) -> Result(PolicyConstants, String) {
 }
 
 /// Returns the epoch number at a given block number (height).
-pub fn get_epoch_at(client: Client, block_number: Int) -> Result(Int, String) {
+pub fn get_epoch_at(
+  client: Client,
+  block_number block_number: Int,
+) -> Result(Int, String) {
   request.new(method: "getEpochAt")
   |> request.with_params(json.array([block_number], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.int))
@@ -86,7 +89,7 @@ pub fn get_epoch_at(client: Client, block_number: Int) -> Result(Int, String) {
 /// to the epoch it is in. For example, the first block of any epoch always has an epoch index of 0.
 pub fn get_epoch_index_at(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getEpochIndexAt")
   |> request.with_params(json.array([block_number], json.int))
@@ -95,7 +98,10 @@ pub fn get_epoch_index_at(
 }
 
 /// Returns the batch number at a given `block_number` (height).
-pub fn get_batch_at(client: Client, block_number: Int) -> Result(Int, String) {
+pub fn get_batch_at(
+  client: Client,
+  block_number block_number: Int,
+) -> Result(Int, String) {
   request.new(method: "getBatchAt")
   |> request.with_params(json.array([block_number], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.int))
@@ -106,7 +112,7 @@ pub fn get_batch_at(client: Client, block_number: Int) -> Result(Int, String) {
 /// to the batch it is in. For example, the first block of any batch always has an batch index of 0.
 pub fn get_batch_index_at(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getBatchIndexAt")
   |> request.with_params(json.array([block_number], json.int))
@@ -117,7 +123,7 @@ pub fn get_batch_index_at(
 /// Returns the number (height) of the next election macro block after a given block number (height).
 pub fn get_election_block_after(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getElectionBlockAfter")
   |> request.with_params(json.array([block_number], json.int))
@@ -129,7 +135,7 @@ pub fn get_election_block_after(
 /// If the given block number is an election macro block, it returns the election macro block before it.
 pub fn get_election_block_before(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getElectionBlockBefore")
   |> request.with_params(json.array([block_number], json.int))
@@ -141,7 +147,7 @@ pub fn get_election_block_before(
 /// If the given block number is an election macro block, then it returns that block number.
 pub fn get_last_election_block(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getLastElectionBlock")
   |> request.with_params(json.array([block_number], json.int))
@@ -152,7 +158,7 @@ pub fn get_last_election_block(
 /// Returns a boolean expressing if the block at a given block number (height) is an election macro block.
 pub fn is_election_block_at(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Bool, String) {
   request.new(method: "isElectionBlockAt")
   |> request.with_params(json.array([block_number], json.int))
@@ -163,7 +169,7 @@ pub fn is_election_block_at(
 /// Returns the block number (height) of the next macro block after a given block number (height).
 pub fn get_macro_block_after(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getMacroBlockAfter")
   |> request.with_params(json.array([block_number], json.int))
@@ -175,7 +181,7 @@ pub fn get_macro_block_after(
 /// If the given block number is a macro block, it returns the macro block before it.
 pub fn get_macro_block_before(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getMacroBlockBefore")
   |> request.with_params(json.array([block_number], json.int))
@@ -187,7 +193,7 @@ pub fn get_macro_block_before(
 /// If the given block number is a macro block, then it returns that block number.
 pub fn get_last_macro_block(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getLastMacroBlock")
   |> request.with_params(json.array([block_number], json.int))
@@ -198,7 +204,7 @@ pub fn get_last_macro_block(
 /// Returns a boolean expressing if the block at a given block number (height) is a macro block.
 pub fn is_macro_block_at(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Bool, String) {
   request.new(method: "isMacroBlockAt")
   |> request.with_params(json.array([block_number], json.int))
@@ -209,7 +215,7 @@ pub fn is_macro_block_at(
 /// Returns a boolean expressing if the block at a given block number (height) is a micro block.
 pub fn is_micro_block_at(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Bool, String) {
   request.new(method: "isMicroBlockAt")
   |> request.with_params(json.array([block_number], json.int))
@@ -218,7 +224,10 @@ pub fn is_micro_block_at(
 }
 
 /// Returns the block number of the first block of the given epoch (which is always a micro block).
-pub fn get_first_block_of(client: Client, epoch: Int) -> Result(Int, String) {
+pub fn get_first_block_of(
+  client: Client,
+  epoch epoch: Int,
+) -> Result(Int, String) {
   request.new(method: "getFirstBlockOf")
   |> request.with_params(json.array([epoch], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.int))
@@ -228,7 +237,7 @@ pub fn get_first_block_of(client: Client, epoch: Int) -> Result(Int, String) {
 /// Returns the block number of the first block of the given batch (which is always a micro block).
 pub fn get_first_block_of_batch(
   client: Client,
-  batch: Int,
+  batch batch: Int,
 ) -> Result(Int, String) {
   request.new(method: "getFirstBlockOfBatch")
   |> request.with_params(json.array([batch], json.int))
@@ -237,7 +246,10 @@ pub fn get_first_block_of_batch(
 }
 
 /// Returns the block number of the election macro block of the given epoch (which is always the last block).
-pub fn get_election_block_of(client: Client, epoch: Int) -> Result(Int, String) {
+pub fn get_election_block_of(
+  client: Client,
+  epoch epoch: Int,
+) -> Result(Int, String) {
   request.new(method: "getElectionBlockOf")
   |> request.with_params(json.array([epoch], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.int))
@@ -246,7 +258,10 @@ pub fn get_election_block_of(client: Client, epoch: Int) -> Result(Int, String) 
 
 /// Returns the block number of the macro block (checkpoint or election) of the given batch (which
 /// is always the last block).
-pub fn get_macro_block_of(client: Client, batch: Int) -> Result(Int, String) {
+pub fn get_macro_block_of(
+  client: Client,
+  batch batch: Int,
+) -> Result(Int, String) {
   request.new(method: "getMacroBlockOf")
   |> request.with_params(json.array([batch], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.int))
@@ -257,7 +272,7 @@ pub fn get_macro_block_of(client: Client, batch: Int) -> Result(Int, String) {
 /// of the epoch.
 pub fn get_first_batch_of_epoch(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Bool, String) {
   request.new(method: "getFirstBatchOfEpoch")
   |> request.with_params(json.array([block_number], json.int))
@@ -268,7 +283,7 @@ pub fn get_first_batch_of_epoch(
 /// Returns the first block after the reporting window of a given block number has ended.
 pub fn get_block_after_reporting_window(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getBlockAfterReportingWindow")
   |> request.with_params(json.array([block_number], json.int))
@@ -279,7 +294,7 @@ pub fn get_block_after_reporting_window(
 /// Returns the first block after the jail period of a given block number has ended.
 pub fn get_block_after_jail(
   client: Client,
-  block_number: Int,
+  block_number block_number: Int,
 ) -> Result(Int, String) {
   request.new(method: "getBlockAfterJail")
   |> request.with_params(json.array([block_number], json.int))
@@ -296,9 +311,9 @@ pub fn get_block_after_jail(
 /// the genesis of the Nimiq 2.0 chain.
 pub fn get_supply_at(
   client: Client,
-  genesis_supply: Int,
-  genesis_time: Int,
-  current_time: Int,
+  genesis_supply genesis_supply: Int,
+  genesis_time genesis_time: Int,
+  current_time current_time: Int,
 ) -> Result(Int, String) {
   request.new(method: "getSupplyAt")
   |> request.with_params(json.array(

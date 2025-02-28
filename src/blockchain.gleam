@@ -43,8 +43,8 @@ pub fn get_epoch_number(client: Client) -> Result(Int, String) {
 /// block, which defaults to false.
 pub fn get_block_by_hash(
   client: Client,
-  hash: String,
-  include_body: Option(Bool),
+  hash hash: String,
+  include_body include_body: Option(Bool),
 ) -> Result(Block, String) {
   request.new(method: "getBlockByHash")
   |> request.with_params(
@@ -62,8 +62,8 @@ pub fn get_block_by_hash(
 /// of the main chain.
 pub fn get_block_by_number(
   client: Client,
-  number: Int,
-  include_body: Option(Bool),
+  number number: Int,
+  include_body include_body: Option(Bool),
 ) -> Result(Block, String) {
   request.new(method: "getBlockByNumber")
   |> request.with_params(
@@ -80,7 +80,7 @@ pub fn get_block_by_number(
 /// transactions in the block, which defaults to false.
 pub fn get_latest_block(
   client: Client,
-  include_body: Option(Bool),
+  include_body include_body: Option(Bool),
 ) -> Result(Block, String) {
   request.new(method: "getLatestBlock")
   |> request.with_params(
@@ -101,8 +101,8 @@ pub fn get_latest_block(
 /// We only have this information available for the last 2 batches at most.
 pub fn get_slot_at(
   client: Client,
-  block_number: Int,
-  offset_opt: Option(Int),
+  block_number block_number: Int,
+  offset_opt offset_opt: Option(Int),
 ) -> Result(Slot, String) {
   request.new(method: "getSlotAt")
   |> request.with_params(
@@ -145,9 +145,9 @@ pub fn get_previous_penalized_slots(
 /// The transaction hashes are returned in descending order, meaning the latest transaction is the first.
 pub fn get_transaction_hashes_by_address(
   client: Client,
-  address: String,
-  max: Option(Int),
-  start_at: Option(String),
+  address address: String,
+  max max: Option(Int),
+  start_at start_at: Option(String),
 ) -> Result(List(String), String) {
   request.new(method: "getTransactionHashesByAddress")
   |> request.with_params(
@@ -166,10 +166,10 @@ pub fn get_transaction_hashes_by_address(
 /// Tries to fetch a transaction (including reward transactions) given its hash.
 pub fn get_transaction_by_hash(
   client: Client,
-  hash: String,
+  hash hash: String,
 ) -> Result(Transaction, String) {
   request.new(method: "getTransactionByHash")
-  |> request.with_params(json.preprocessed_array([json.string(hash)]))
+  |> request.with_params(json.array([hash], json.string))
   |> request.with_decoder(utils.unwrap_data(transaction.decoder()))
   |> utils.call(client, _)
 }
@@ -178,10 +178,10 @@ pub fn get_transaction_by_hash(
 /// that this only considers blocks in the main chain.
 pub fn get_transactions_by_block_number(
   client: Client,
-  number: Int,
+  number number: Int,
 ) -> Result(List(Transaction), String) {
   request.new(method: "getTransactionsByBlockNumber")
-  |> request.with_params(json.preprocessed_array([json.int(number)]))
+  |> request.with_params(json.array([number], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.list(transaction.decoder())))
   |> utils.call(client, _)
 }
@@ -190,10 +190,10 @@ pub fn get_transactions_by_block_number(
 /// that this only considers blocks in the main chain.
 pub fn get_transactions_by_batch_number(
   client: Client,
-  number: Int,
+  number number: Int,
 ) -> Result(List(Transaction), String) {
   request.new(method: "getTransactionsByBatchNumber")
-  |> request.with_params(json.preprocessed_array([json.int(number)]))
+  |> request.with_params(json.array([number], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.list(transaction.decoder())))
   |> utils.call(client, _)
 }
@@ -206,9 +206,9 @@ pub fn get_transactions_by_batch_number(
 /// The transactions are returned in descending order, meaning the latest transaction is the first.
 pub fn get_transactions_by_address(
   client: Client,
-  address: String,
-  max: Option(Int),
-  start_at: Option(String),
+  address address: String,
+  max max: Option(Int),
+  start_at start_at: Option(String),
 ) -> Result(List(Transaction), String) {
   request.new(method: "getTransactionsByAddress")
   |> request.with_params(
@@ -228,10 +228,10 @@ pub fn get_transactions_by_address(
 /// that this only considers blocks in the main chain.
 pub fn get_inherents_by_block_number(
   client: Client,
-  number: Int,
+  number number: Int,
 ) -> Result(List(Inherent), String) {
   request.new(method: "getInherentsByBlockNumber")
-  |> request.with_params(json.preprocessed_array([json.int(number)]))
+  |> request.with_params(json.array([number], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.list(inherent.decoder())))
   |> utils.call(client, _)
 }
@@ -240,10 +240,10 @@ pub fn get_inherents_by_block_number(
 /// that this only considers blocks in the main chain.
 pub fn get_inherents_by_batch_number(
   client: Client,
-  number: Int,
+  number number: Int,
 ) -> Result(List(Inherent), String) {
   request.new(method: "getInherentsByBatchNumber")
-  |> request.with_params(json.preprocessed_array([json.int(number)]))
+  |> request.with_params(json.array([number], json.int))
   |> request.with_decoder(utils.unwrap_data(decode.list(inherent.decoder())))
   |> utils.call(client, _)
 }
@@ -253,10 +253,10 @@ pub fn get_inherents_by_batch_number(
 /// Tries to fetch the account at the given address.
 pub fn get_account_by_address(
   client: Client,
-  address: String,
+  address address: String,
 ) -> Result(Account, String) {
   request.new(method: "getAccountByAddress")
-  |> request.with_params(json.preprocessed_array([json.string(address)]))
+  |> request.with_params(json.array([address], json.string))
   |> request.with_decoder(utils.unwrap_data(account.decoder()))
   |> utils.call(client, _)
 }
@@ -276,10 +276,10 @@ pub fn dangerously_get_accounts(client: Client) -> Result(List(Account), String)
 /// Tries to fetch a validator information given its address.
 pub fn get_validator_by_address(
   client: Client,
-  address: String,
+  address address: String,
 ) -> Result(Validator, String) {
   request.new(method: "getValidatorByAddress")
-  |> request.with_params(json.preprocessed_array([json.string(address)]))
+  |> request.with_params(json.array([address], json.string))
   |> request.with_decoder(utils.unwrap_data(validator.decoder()))
   |> utils.call(client, _)
 }
@@ -311,10 +311,10 @@ pub fn dangerously_get_validators(
 /// and thus is extremely computationally expensive.
 pub fn dangerously_get_stakers_by_validator_address(
   client: Client,
-  address: String,
+  address address: String,
 ) -> Result(List(Staker), String) {
   request.new(method: "getStakersByValidatorAddress")
-  |> request.with_params(json.preprocessed_array([json.string(address)]))
+  |> request.with_params(json.array([address], json.string))
   |> request.with_decoder(utils.unwrap_data(decode.list(staker.decoder())))
   |> utils.call(client, _)
 }
@@ -322,10 +322,10 @@ pub fn dangerously_get_stakers_by_validator_address(
 /// Tries to fetch a staker information given its address.
 pub fn get_staker_by_address(
   client: Client,
-  address: String,
+  address address: String,
 ) -> Result(Staker, String) {
   request.new(method: "getStakerByAddress")
-  |> request.with_params(json.preprocessed_array([json.string(address)]))
+  |> request.with_params(json.array([address], json.string))
   |> request.with_decoder(utils.unwrap_data(staker.decoder()))
   |> utils.call(client, _)
 }
