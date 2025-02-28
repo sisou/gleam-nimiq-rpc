@@ -172,10 +172,25 @@ fn get_blocks(client: Client) {
   }
 }
 
-pub fn get_inherents(client: Client, batch: Int) {
+fn get_inherents(client: Client, batch: Int) {
   let assert Ok(inherents) =
     client |> blockchain.get_inherents_by_batch_number(batch - 1)
   io.debug(inherents |> list.length())
+}
+
+fn get_policy(client: Client, height: Int) {
+  let assert Ok(constants) = client |> policy.get_policy_constants()
+  io.debug(constants)
+
+  let assert Ok(election_height) =
+    client |> policy.get_election_block_before(height)
+  let assert Ok(True) = client |> policy.is_election_block_at(election_height)
+  let assert Ok(False) =
+    client |> policy.is_election_block_at(election_height - 1)
+  let assert Ok(True) = client |> policy.is_macro_block_at(election_height)
+  let assert Ok(False) = client |> policy.is_macro_block_at(election_height - 1)
+  let assert Ok(False) = client |> policy.is_micro_block_at(election_height)
+  let assert Ok(True) = client |> policy.is_micro_block_at(election_height - 1)
 }
 
 pub fn main() {
@@ -195,4 +210,5 @@ pub fn main() {
   get_staker(client)
   get_blocks(client)
   get_inherents(client, batch)
+  get_policy(client, height)
 }
