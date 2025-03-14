@@ -1,5 +1,5 @@
 name = "nimiq_rpc"
-version = "0.1.0"
+version = "1.0.0"
 description = "Nimiq JSON-RPC Client Library for Gleam"
 licences = ["MIT"]
 
