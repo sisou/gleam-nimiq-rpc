@@ -1,6 +1,6 @@
 import gleam/json.{type Json}
 
-import fiber/message
+import nimiq_rpc/internal/fiber/src/fiber/message
 
 pub type Error {
   InvalidParams

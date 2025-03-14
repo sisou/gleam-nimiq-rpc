@@ -1,11 +1,11 @@
 import gleam/dynamic/decode
 import gleam/json
 
-import fiber/request
+import nimiq_rpc/internal/fiber/src/fiber/request
 
-import internal/transaction.{type Transaction}
-import internal/utils
 import nimiq_rpc.{type Client}
+import nimiq_rpc/internal/transaction.{type Transaction}
+import nimiq_rpc/internal/utils
 
 /// Returns a boolean specifying if we have established consensus with the network.
 pub fn is_consensus_established(client: Client) -> Result(Bool, String) {

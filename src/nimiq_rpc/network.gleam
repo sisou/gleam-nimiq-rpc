@@ -1,9 +1,9 @@
 import gleam/dynamic/decode
 
-import fiber/request
+import nimiq_rpc/internal/fiber/src/fiber/request
 
-import internal/utils
 import nimiq_rpc.{type Client}
+import nimiq_rpc/internal/utils
 
 /// Returns the peer ID for our local peer.
 pub fn get_peer_id(client: Client) -> Result(String, String) {

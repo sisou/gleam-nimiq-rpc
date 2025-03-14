@@ -3,7 +3,7 @@ import gleam/dynamic/decode
 import gleam/json.{type Json}
 import gleam/option.{type Option}
 
-import fiber/message
+import nimiq_rpc/internal/fiber/src/fiber/message
 
 pub type Request(return) {
   Request(

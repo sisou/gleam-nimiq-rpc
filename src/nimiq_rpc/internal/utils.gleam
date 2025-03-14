@@ -7,10 +7,10 @@ import gleam/option.{None, Some}
 import gleam/result
 import gleam/string
 
-import fiber/backend
-import fiber/fiber
-import fiber/message
-import fiber/request as fiber_request
+import nimiq_rpc/internal/fiber/src/fiber
+import nimiq_rpc/internal/fiber/src/fiber/backend
+import nimiq_rpc/internal/fiber/src/fiber/message
+import nimiq_rpc/internal/fiber/src/fiber/request as fiber_request
 
 fn readable_error(
   err: fiber.RequestError(Result(Dynamic, message.ErrorData(Dynamic))),

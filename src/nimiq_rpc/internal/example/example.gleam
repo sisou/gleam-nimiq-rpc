@@ -6,11 +6,12 @@ import gleam/result
 import dot_env
 import dot_env/env
 
-import blockchain
-import internal/account
-import internal/block.{Macro, Micro}
+import nimiq_rpc/internal/account
+import nimiq_rpc/internal/block.{Macro, Micro}
+
 import nimiq_rpc.{type Client}
-import policy
+import nimiq_rpc/blockchain
+import nimiq_rpc/policy
 
 fn get_heights(client: Client) -> #(Int, Int, Int) {
   let assert Ok(height) = client |> blockchain.get_block_number()
@@ -194,7 +195,7 @@ fn get_policy(client: Client, height: Int) {
 }
 
 pub fn main() {
-  dot_env.new_with_path("src/example/.env") |> dot_env.load()
+  dot_env.new_with_path("src/nimiq_rpc/internal/example/.env") |> dot_env.load()
 
   let assert Ok(url) = env.get_string("RPC_URL")
   let assert Ok(username) = env.get_string("RPC_USERNAME")

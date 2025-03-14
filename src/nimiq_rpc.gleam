@@ -9,9 +9,9 @@ import gleam/option.{type Option, None, Some}
 import gleam/otp/actor
 import gleam/result
 
-import fiber/backend
-import fiber/fiber
-import fiber/message
+import nimiq_rpc/internal/fiber/src/fiber
+import nimiq_rpc/internal/fiber/src/fiber/backend
+import nimiq_rpc/internal/fiber/src/fiber/message
 
 fn send_request(
   url: String,

@@ -8,9 +8,9 @@ import gleam/result
 import gleam/set
 import youid/uuid
 
-import fiber/backend
-import fiber/message
-import fiber/request
+import nimiq_rpc/internal/fiber/src/fiber/backend
+import nimiq_rpc/internal/fiber/src/fiber/message
+import nimiq_rpc/internal/fiber/src/fiber/request
 
 pub fn new() -> backend.FiberBuilder {
   backend.FiberBuilder(

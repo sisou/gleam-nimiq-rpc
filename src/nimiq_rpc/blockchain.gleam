@@ -2,17 +2,17 @@ import gleam/dynamic/decode
 import gleam/json
 import gleam/option.{type Option}
 
-import fiber/request
+import nimiq_rpc/internal/fiber/src/fiber/request
 
-import internal/account.{type Account}
-import internal/block.{type Block}
-import internal/inherent.{type Inherent}
-import internal/slot.{type DisabledSlots, type Slot}
-import internal/staker.{type Staker}
-import internal/transaction.{type Transaction}
-import internal/utils
-import internal/validator.{type Validator}
 import nimiq_rpc.{type Client}
+import nimiq_rpc/internal/account.{type Account}
+import nimiq_rpc/internal/block.{type Block}
+import nimiq_rpc/internal/inherent.{type Inherent}
+import nimiq_rpc/internal/slot.{type DisabledSlots, type Slot}
+import nimiq_rpc/internal/staker.{type Staker}
+import nimiq_rpc/internal/transaction.{type Transaction}
+import nimiq_rpc/internal/utils
+import nimiq_rpc/internal/validator.{type Validator}
 
 // Numbers
 

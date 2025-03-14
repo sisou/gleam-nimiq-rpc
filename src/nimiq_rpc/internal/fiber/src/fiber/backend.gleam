@@ -11,8 +11,8 @@ import gleam/result
 import gleam/set
 import gleam/string
 
-import fiber/message
-import fiber/response
+import nimiq_rpc/internal/fiber/src/fiber/message
+import nimiq_rpc/internal/fiber/src/fiber/response
 
 pub type RequestCallback =
   fn(Option(Dynamic)) -> Result(Json, response.Error)

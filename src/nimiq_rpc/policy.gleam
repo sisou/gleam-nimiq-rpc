@@ -1,10 +1,10 @@
 import gleam/dynamic/decode
 import gleam/json
 
-import fiber/request
+import nimiq_rpc/internal/fiber/src/fiber/request
 
-import internal/utils
 import nimiq_rpc.{type Client}
+import nimiq_rpc/internal/utils
 
 pub type PolicyConstants {
   PolicyConstants(
