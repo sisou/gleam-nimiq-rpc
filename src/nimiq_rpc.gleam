@@ -19,10 +19,10 @@ fn send_request(
   payload: String,
 ) -> Result(response.Response(String), httpc.HttpError) {
   // Prepare a HTTP request record
-  let assert Ok(base_req) = request.to(url)
+  let assert Ok(req) = request.to(url)
 
   let req =
-    base_req
+    req
     |> request.set_method(http.Post)
     |> request.set_header("content-type", "application/json")
     |> request.set_body(payload)
@@ -33,8 +33,7 @@ fn send_request(
       req
       |> request.set_header(
         "authorization",
-        "Basic "
-          <> auth |> bit_array.from_string() |> bit_array.base64_encode(True),
+        "Basic " <> bit_array.from_string(auth) |> bit_array.base64_encode(True),
       )
     }
     None -> req
