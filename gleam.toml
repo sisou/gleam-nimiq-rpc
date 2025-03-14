@@ -1,7 +1,7 @@
 name = "nimiq_rpc"
 version = "0.1.0"
 
-gleam = ">= 1.8.0"
+gleam = ">= 1.9.0"
 
 # Fill out these fields if you intend to generate HTML documentation or publish
 # your project to the Hex package manager.
@@ -24,5 +24,4 @@ gleam_stdlib = ">= 0.44.0 and < 2.0.0"
 
 dotenv_gleam = ">= 1.0.7 and < 2.0.0"
 envoy = ">= 1.0.2 and < 2.0.0"
-# fiber = { git = "https://github.com/sisou/gleam-fiber.git", ref = "a47d1a7901051722ccf4012615be56dd6a0f76fc" }
-fiber = { path = "../gleam-fiber" }
+fiber = { git = "https://github.com/sisou/gleam-fiber.git", ref = "always-include-params" }
