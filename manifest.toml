@@ -2,8 +2,7 @@
 # You typically do not need to edit this file
 
 packages = [
-  { name = "dotenv_gleam", version = "1.0.7", build_tools = ["gleam"], requirements = ["envoy", "gleam_erlang", "gleam_stdlib", "simplifile"], otp_app = "dotenv_gleam", source = "hex", outer_checksum = "E5C63C326508C4ABF29FB29257A40F9275D63CBE605EEFC807CDCD571E7B2F51" },
-  { name = "envoy", version = "1.0.2", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "envoy", source = "hex", outer_checksum = "95FD059345AA982E89A0B6E2A3BF1CF43E17A7048DCD85B5B65D3B9E4E39D359" },
+  { name = "dot_env", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "simplifile"], otp_app = "dot_env", source = "hex", outer_checksum = "F2B4815F1B5AF8F20A6EADBB393E715C4C35203EBD5BE8200F766EA83A0B18DE" },
   { name = "fiber", version = "1.0.0", build_tools = ["gleam"], requirements = ["gleam_erlang", "gleam_json", "gleam_otp", "gleam_stdlib", "youid"], source = "git", repo = "https://github.com/sisou/gleam-fiber.git", commit = "624818c78bc6d1a11d08b351e41c35ff16156cf2" },
   { name = "filepath", version = "1.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "filepath", source = "hex", outer_checksum = "67A6D15FB39EEB69DD31F8C145BB5A421790581BD6AA14B33D64D5A55DBD6587" },
   { name = "gleam_crypto", version = "1.4.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "gleam_crypto", source = "hex", outer_checksum = "8AE56026B3E05EBB1F076778478A762E9EB62B31AEEB4285755452F397029D22" },
@@ -18,8 +17,7 @@ packages = [
 ]
 
 [requirements]
-dotenv_gleam = { version = ">= 1.0.7 and < 2.0.0" }
-envoy = { version = ">= 1.0.2 and < 2.0.0" }
+dot_env = { version = ">= 1.2.0 and < 2.0.0" }
 fiber = { git = "https://github.com/sisou/gleam-fiber.git", ref = "always-include-params" }
 gleam_erlang = { version = ">= 0.34.0 and < 1.0.0" }
 gleam_http = { version = ">= 4.0.0 and < 5.0.0" }

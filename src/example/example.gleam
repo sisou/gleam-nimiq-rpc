@@ -3,8 +3,8 @@ import gleam/list
 import gleam/option.{None, Some}
 import gleam/result
 
-import dotenv_gleam
-import envoy
+import dot_env
+import dot_env/env
 
 import blockchain
 import internal/account
@@ -194,11 +194,11 @@ fn get_policy(client: Client, height: Int) {
 }
 
 pub fn main() {
-  dotenv_gleam.config_with("src/example/.env")
+  dot_env.new_with_path("src/example/.env") |> dot_env.load()
 
-  let assert Ok(url) = envoy.get("RPC_URL")
-  let assert Ok(username) = envoy.get("RPC_USERNAME")
-  let assert Ok(password) = envoy.get("RPC_PASSWORD")
+  let assert Ok(url) = env.get_string("RPC_URL")
+  let assert Ok(username) = env.get_string("RPC_USERNAME")
+  let assert Ok(password) = env.get_string("RPC_PASSWORD")
 
   let client = nimiq_rpc.client_with_auth(url, username, password)
 
