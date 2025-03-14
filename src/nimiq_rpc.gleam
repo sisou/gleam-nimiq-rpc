@@ -9,8 +9,8 @@ import gleam/option.{type Option, None, Some}
 import gleam/otp/actor
 import gleam/result
 
-import fiber
 import fiber/backend
+import fiber/fiber
 import fiber/message
 
 fn send_request(

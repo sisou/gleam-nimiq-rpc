@@ -23,5 +23,5 @@ gleam_httpc = ">= 4.1.0 and < 5.0.0"
 gleam_json = ">= 2.3.0 and < 3.0.0"
 gleam_otp = ">= 0.16.1 and < 1.0.0"
 gleam_stdlib = ">= 0.44.0 and < 2.0.0"
-fiber = { git = "https://github.com/sisou/gleam-fiber.git", ref = "always-include-params" }
 dot_env = ">= 1.2.0 and < 2.0.0"
+youid = ">= 1.2.0 and < 2.0.0"

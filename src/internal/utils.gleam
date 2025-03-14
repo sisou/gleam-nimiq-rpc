@@ -7,8 +7,8 @@ import gleam/option.{None, Some}
 import gleam/result
 import gleam/string
 
-import fiber
 import fiber/backend
+import fiber/fiber
 import fiber/message
 import fiber/request as fiber_request
 
