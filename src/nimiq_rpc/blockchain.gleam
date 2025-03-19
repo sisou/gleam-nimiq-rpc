@@ -5,14 +5,14 @@ import gleam/option.{type Option}
 import nimiq_rpc/internal/fiber/src/fiber/request
 
 import nimiq_rpc.{type Client}
-import nimiq_rpc/internal/account.{type Account}
-import nimiq_rpc/internal/block.{type Block}
-import nimiq_rpc/internal/inherent.{type Inherent}
-import nimiq_rpc/internal/slot.{type DisabledSlots, type Slot}
-import nimiq_rpc/internal/staker.{type Staker}
-import nimiq_rpc/internal/transaction.{type Transaction}
 import nimiq_rpc/internal/utils
-import nimiq_rpc/internal/validator.{type Validator}
+import nimiq_rpc/primitives/account.{type Account}
+import nimiq_rpc/primitives/block.{type Block}
+import nimiq_rpc/primitives/inherent.{type Inherent}
+import nimiq_rpc/primitives/slot.{type DisabledSlots, type Slot}
+import nimiq_rpc/primitives/staker.{type Staker}
+import nimiq_rpc/primitives/transaction.{type Transaction}
+import nimiq_rpc/primitives/validator.{type Validator}
 
 // Numbers
 

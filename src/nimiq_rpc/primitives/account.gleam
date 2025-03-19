@@ -1,6 +1,6 @@
 import gleam/dynamic/decode.{type Decoder}
 
-import nimiq_rpc/internal/hash
+import nimiq_rpc/primitives/hash
 
 pub type Account {
   Basic(address: String, balance: Int)

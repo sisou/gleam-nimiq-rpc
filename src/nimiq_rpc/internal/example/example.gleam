@@ -6,8 +6,8 @@ import gleam/result
 import dot_env
 import dot_env/env
 
-import nimiq_rpc/internal/account
-import nimiq_rpc/internal/block.{Macro, Micro}
+import nimiq_rpc/primitives/account
+import nimiq_rpc/primitives/block.{Macro, Micro}
 
 import nimiq_rpc.{type Client}
 import nimiq_rpc/blockchain
