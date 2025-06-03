@@ -248,12 +248,6 @@ pub fn handle_text(
   case message.decode(text) {
     Error(error) -> {
       case error {
-        json.UnexpectedFormat(_) ->
-          message.ErrorData(
-            code: -32_600,
-            message: "Invalid Request",
-            data: option.None,
-          )
         json.UnableToDecode(_) ->
           message.ErrorData(
             code: -32_600,

@@ -41,10 +41,10 @@ pub fn main() {
   // ...
 
   let assert Ok(has_consensus) = client |> consensus.is_consensus_established()
-  io.debug(has_consensus) // True or False
+  echo has_consensus // True or False
 
   let assert Ok(number) = client |> blockchain.get_block_number()
-  io.debug(number) // For example 13424115
+  echo number // For example 13424115
 }
 ```
 
