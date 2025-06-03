@@ -3,9 +3,6 @@
 [![Package Version](https://img.shields.io/hexpm/v/nimiq_rpc)](https://hex.pm/packages/nimiq_rpc)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/nimiq_rpc/)
 
-> **Important:**<br>
-> This library requires Gleam v1.9, as it uses a Github dependency.
-
 ## Installation
 
 ```sh
@@ -22,7 +19,7 @@ import nimiq_rpc
 pub fn main() {
   let client = nimiq_rpc.client("http://localhost:8648")
 
-  // To add authentication information, use this function:
+  // To add authentication information, use this function instead:
   let client = nimiq_rpc.client_with_auth(
     "http://localhost:8648",
     "username",
@@ -31,7 +28,7 @@ pub fn main() {
 }
 ```
 
-Each RPC method has its own typed method in this library. The methods are ordered by dispatcher, just like they are in the Rust source code (but your editor's auto-import should help you resolve each method name you want to use). The name of each method is the `snake-case` version of the `camelCase` method name.
+Each RPC method has its own typed method in this library. The methods are ordered by dispatcher, just like they are in the Rust source code (but your editor's auto-import should help you resolve each method name you want to use). The name of each method is the `snake_case` version of the `camelCase` method name.
 
 ```gleam
 import nimiq_rpc/consensus
