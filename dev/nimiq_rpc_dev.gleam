@@ -133,14 +133,14 @@ fn get_staker(client: Client) {
 }
 
 fn get_blocks(client: Client) {
-  let assert Ok(head) = client |> blockchain.get_latest_block(Some(False))
+  let assert Ok(head) = client |> blockchain.get_latest_block(Some(True))
   echo head
   let is_election_block = case head {
     Micro(number: head_height, ..) -> {
       let assert Ok(macro_height) =
         client |> policy.get_last_macro_block(head_height)
       let assert Ok(macro_block) =
-        client |> blockchain.get_block_by_number(macro_height, Some(False))
+        client |> blockchain.get_block_by_number(macro_height, Some(True))
       echo macro_block
 
       case macro_block {
@@ -150,7 +150,7 @@ fn get_blocks(client: Client) {
     }
     Macro(number: head_height, is_election_block:, ..) -> {
       let assert Ok(micro_block) =
-        client |> blockchain.get_block_by_number(head_height - 1, Some(False))
+        client |> blockchain.get_block_by_number(head_height - 1, Some(True))
       echo micro_block
 
       is_election_block
@@ -165,7 +165,7 @@ fn get_blocks(client: Client) {
       let assert Ok(election_head) =
         client |> policy.get_last_election_block(head.number)
       let assert Ok(election_block) =
-        client |> blockchain.get_block_by_number(election_head, Some(False))
+        client |> blockchain.get_block_by_number(election_head, Some(True))
       echo election_block
       Nil
     }

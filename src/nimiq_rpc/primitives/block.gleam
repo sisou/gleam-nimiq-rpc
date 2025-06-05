@@ -2,6 +2,8 @@ import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode.{type Decoder}
 import gleam/option.{type Option, None}
 
+import nimiq_rpc/primitives/transaction.{type Transaction}
+
 pub type MacroSignatureInner {
   MacroSignatureInner(signature: String)
 }
@@ -86,7 +88,7 @@ pub type Block {
     state_hash: String,
     body_hash: String,
     history_hash: String,
-    transactions: Option(List(Dynamic)),
+    transactions: Option(List(Transaction)),
     // Micro-specific fields
     producer: Producer,
     equivocation_proofs: Option(List(Dynamic)),
@@ -108,7 +110,7 @@ pub type Block {
     state_hash: String,
     body_hash: String,
     history_hash: String,
-    transactions: Option(List(Dynamic)),
+    transactions: Option(List(Transaction)),
     // Macro-specific fields
     is_election_block: Bool,
     justification: Justification,
@@ -137,7 +139,7 @@ fn micro_block_decoder() -> Decoder(Block) {
   use transactions <- decode.optional_field(
     "transactions",
     None,
-    decode.optional(decode.list(decode.dynamic)),
+    decode.optional(decode.list(transaction.decoder())),
   )
 
   use producer <- decode.field("producer", producer_decoder())
@@ -191,7 +193,7 @@ fn macro_block_decoder() -> Decoder(Block) {
   use transactions <- decode.optional_field(
     "transactions",
     None,
-    decode.optional(decode.list(decode.dynamic)),
+    decode.optional(decode.list(transaction.decoder())),
   )
 
   use is_election_block <- decode.field("isElectionBlock", decode.bool)
