@@ -26,6 +26,7 @@ fn macro_signature_decoder() -> Decoder(MacroSignature) {
 pub type Justification {
   MicroJustification(micro: String)
   MacroJustification(round: Int, sig: MacroSignature)
+  SkipJustification(sig: MacroSignature)
 }
 
 fn micro_justification_decoder() -> Decoder(Justification) {
@@ -39,8 +40,16 @@ fn macro_justification_decoder() -> Decoder(Justification) {
   decode.success(MacroJustification(round:, sig:))
 }
 
+fn skip_justification_decoder() -> Decoder(Justification) {
+  use sig <- decode.field("sig", macro_signature_decoder())
+  decode.success(SkipJustification(sig:))
+}
+
 fn justification_decoder() -> Decoder(Justification) {
-  decode.one_of(micro_justification_decoder(), [macro_justification_decoder()])
+  decode.one_of(micro_justification_decoder(), [
+    macro_justification_decoder(),
+    skip_justification_decoder(),
+  ])
 }
 
 pub type Producer {
