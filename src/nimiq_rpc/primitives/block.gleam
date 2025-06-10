@@ -41,14 +41,17 @@ fn macro_justification_decoder() -> Decoder(Justification) {
 }
 
 fn skip_justification_decoder() -> Decoder(Justification) {
-  use sig <- decode.field("sig", macro_signature_decoder())
-  decode.success(SkipJustification(sig:))
+  use justification <- decode.field("skip", {
+    use sig <- decode.field("sig", macro_signature_decoder())
+    decode.success(SkipJustification(sig:))
+  })
+  decode.success(justification)
 }
 
 fn justification_decoder() -> Decoder(Justification) {
-  decode.one_of(micro_justification_decoder(), [
+  decode.one_of(skip_justification_decoder(), [
     macro_justification_decoder(),
-    skip_justification_decoder(),
+    micro_justification_decoder(),
   ])
 }
 
