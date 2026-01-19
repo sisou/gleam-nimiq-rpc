@@ -1,6 +1,5 @@
 import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode.{type Decoder}
-import gleam/erlang/process
 import gleam/int
 import gleam/list
 import gleam/option.{None, Some}
@@ -44,8 +43,6 @@ fn readable_error(
       })
       |> string.join(", ")
     }
-    fiber.CallError(process.CalleeDown(_)) -> "Client actor process down"
-    fiber.CallError(process.CallTimeout) -> "Timeout"
   }
 }
 

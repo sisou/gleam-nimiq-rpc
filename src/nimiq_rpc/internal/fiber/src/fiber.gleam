@@ -66,7 +66,6 @@ pub fn server_only(builder: backend.FiberBuilder) -> backend.FiberBuilder {
 pub type RequestError(a) {
   ReturnedError(message.ErrorData(Dynamic))
   DecodeError(List(decode.DecodeError))
-  CallError(process.CallError(a))
 }
 
 pub fn call(
@@ -78,20 +77,17 @@ pub fn call(
 
   let return =
     fiber
-    |> process.try_call(
-      backend.Request(request.method, request.params, id, _),
-      timeout,
-    )
-    |> result.map_error(CallError)
-    |> result.map(fn(call_result) {
-      call_result
-      |> result.map(fn(data) {
-        decode.run(data, request.decoder)
-        |> result.map_error(DecodeError)
-      })
-      |> result.map_error(ReturnedError)
-      |> result.flatten
+    |> process.call(timeout, backend.Request(
+      request.method,
+      request.params,
+      id,
+      _,
+    ))
+    |> result.map(fn(data) {
+      decode.run(data, request.decoder)
+      |> result.map_error(DecodeError)
     })
+    |> result.map_error(ReturnedError)
     |> result.flatten
 
   fiber |> process.send(backend.RemoveWaiting(id))
@@ -123,10 +119,7 @@ pub fn call_batch(
     requests
     |> list.map(fn(request) { #(request.method, request.params, request.id) })
 
-  let return =
-    fiber
-    |> process.try_call(backend.Batch(batch, ids, _), timeout)
-    |> result.map_error(CallError)
+  let return = fiber |> process.call(timeout, backend.Batch(batch, ids, _))
 
   fiber |> process.send(backend.RemoveWaitingBatch(ids))
 

@@ -52,8 +52,9 @@ fn start_client(
 ) -> Client {
   let state = fiber.new() |> backend.build_state()
 
-  let assert Ok(actor) =
-    actor.start(state, fn(msg, state) {
+  let assert Ok(actor.Started(_, actor)) =
+    actor.new(state)
+    |> actor.on_message(fn(state, msg) {
       let response_subject = process.new_subject()
       let next =
         state
@@ -67,7 +68,7 @@ fn start_client(
         })
 
       case next {
-        actor.Continue(next_state, _) -> {
+        backend.Continue(next_state, _) -> {
           case response_subject |> process.receive(0) {
             Ok(response) -> {
               let _ = next_state |> backend.handle_text(response)
@@ -77,9 +78,11 @@ fn start_client(
           }
           actor.continue(next_state)
         }
-        actor.Stop(reason) -> actor.Stop(reason)
+        backend.Stop(next) -> next
       }
     })
+    |> actor.start()
+
   actor
 }
 

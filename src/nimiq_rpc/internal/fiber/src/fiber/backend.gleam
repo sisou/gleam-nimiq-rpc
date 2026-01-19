@@ -1,7 +1,6 @@
 import gleam/dict.{type Dict}
 import gleam/dynamic.{type Dynamic}
 import gleam/erlang/process
-import gleam/function
 import gleam/io
 import gleam/json.{type Json}
 import gleam/list
@@ -80,6 +79,25 @@ pub type Message {
   Close
 }
 
+// The actor.Next type is opaque, so we cannot match on it on the receiving side (in nimiq_rpc.gleam).
+// Therefore, we define our own Next type here that we can match on and then convert to actor.Next after we are done.
+pub type Next(state, message) {
+  Continue(state: state, selector: Option(process.Selector(message)))
+  // Since we cannot represent all internal Stop states of the actor module,
+  // we simply use the transparent actor.Next type as the payload.
+  // This _can technically_ represent a Continue state as well, but we control
+  // the usage to only produce Stop states here.
+  Stop(actor.Next(state, message))
+}
+
+pub fn continue(state: state) -> Next(state, message) {
+  Continue(state:, selector: option.None)
+}
+
+pub fn stop(next: actor.Next(state, message)) -> Next(state, message) {
+  Stop(next)
+}
+
 pub type Fiber =
   process.Subject(Message)
 
@@ -129,24 +147,24 @@ pub fn wrap(
     process.send(send_back, subject)
 
     process.new_selector()
-    |> process.selecting(subject, function.identity)
+    |> process.select(subject)
   }
 
   use _ <- result.map(establish(bind_selector))
 
   process.new_selector()
-  |> process.selecting(send_back, function.identity)
-  |> process.select_forever
+  |> process.select(send_back)
+  |> process.selector_receive_forever
 }
 
-pub fn stop_on_error(result: Result(a, b), state: d) -> actor.Next(c, d) {
+pub fn stop_on_error(result: Result(a, b), state: d) -> Next(d, c) {
   case result {
     Error(e) -> {
       let reason = string.inspect(e)
       io.print_error("Fiber closed due to " <> reason)
-      actor.Stop(process.Abnormal(reason))
+      stop(actor.stop_abnormal(reason))
     }
-    Ok(_) -> actor.continue(state)
+    Ok(_) -> continue(state)
   }
 }
 
@@ -287,7 +305,7 @@ pub fn fiber_message(
   state: FiberState,
   message message: Message,
   send send: fn(message.Message(Json)) -> Result(a, b),
-) -> actor.Next(m, FiberState) {
+) -> Next(FiberState, m) {
   case message {
     Request(method, params, id, reply_subject) -> {
       message.Request(params, method, id)
@@ -314,10 +332,9 @@ pub fn fiber_message(
       |> send
       |> stop_on_error(state |> add_waiting_batch(ids, reply_subject))
     }
-    RemoveWaiting(id) -> actor.continue(state |> remove_waiting(id))
-    RemoveWaitingBatch(ids) ->
-      actor.continue(state |> remove_waiting_batch(ids))
-    Close -> actor.Stop(process.Normal)
+    RemoveWaiting(id) -> continue(state |> remove_waiting(id))
+    RemoveWaitingBatch(ids) -> continue(state |> remove_waiting_batch(ids))
+    Close -> stop(actor.stop())
   }
 }
 
