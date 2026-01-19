@@ -12,7 +12,6 @@ pub type PolicyConstants {
     coinbase_address: String,
     transaction_validity_window: Int,
     max_size_micro_body: Int,
-    version: Int,
     slots: Int,
     blocks_per_batch: Int,
     batches_per_epoch: Int,
@@ -23,6 +22,7 @@ pub type PolicyConstants {
     block_separation_time: Int,
     jail_epochs: Int,
     genesis_block_number: Int,
+    max_supported_version: Int,
   )
 }
 
@@ -37,7 +37,6 @@ fn policy_constants_decoder() -> decode.Decoder(PolicyConstants) {
     decode.int,
   )
   use max_size_micro_body <- decode.field("maxSizeMicroBody", decode.int)
-  use version <- decode.field("version", decode.int)
   use slots <- decode.field("slots", decode.int)
   use blocks_per_batch <- decode.field("blocksPerBatch", decode.int)
   use batches_per_epoch <- decode.field("batchesPerEpoch", decode.int)
@@ -48,12 +47,12 @@ fn policy_constants_decoder() -> decode.Decoder(PolicyConstants) {
   use block_separation_time <- decode.field("blockSeparationTime", decode.int)
   use jail_epochs <- decode.field("jailEpochs", decode.int)
   use genesis_block_number <- decode.field("genesisBlockNumber", decode.int)
+  use max_supported_version <- decode.field("maxSupportedVersion", decode.int)
   decode.success(PolicyConstants(
     staking_contract_address:,
     coinbase_address:,
     transaction_validity_window:,
     max_size_micro_body:,
-    version:,
     slots:,
     blocks_per_batch:,
     batches_per_epoch:,
@@ -64,6 +63,7 @@ fn policy_constants_decoder() -> decode.Decoder(PolicyConstants) {
     block_separation_time:,
     jail_epochs:,
     genesis_block_number:,
+    max_supported_version:,
   ))
 }
 
