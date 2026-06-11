@@ -2,8 +2,7 @@ import gleam/list
 import gleam/option.{None, Some}
 import gleam/result
 
-import dot_env
-import dot_env/env
+import dotenv_conf
 
 import nimiq_rpc/primitives/account
 import nimiq_rpc/primitives/block.{Macro, Micro}
@@ -194,11 +193,10 @@ fn get_policy(client: Client, height: Int) {
 }
 
 pub fn main() {
-  dot_env.new_with_path("dev/.env") |> dot_env.load()
-
-  let assert Ok(url) = env.get_string("RPC_URL")
-  let assert Ok(username) = env.get_string("RPC_USERNAME")
-  let assert Ok(password) = env.get_string("RPC_PASSWORD")
+  use env_file <- dotenv_conf.read_file(".env")
+  let assert Ok(url) = dotenv_conf.read_string("RPC_URL", env_file)
+  let assert Ok(username) = dotenv_conf.read_string("RPC_USERNAME", env_file)
+  let assert Ok(password) = dotenv_conf.read_string("RPC_PASSWORD", env_file)
 
   let client = case username, password {
     "", "" -> nimiq_rpc.client(url)
