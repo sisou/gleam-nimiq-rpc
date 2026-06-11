@@ -265,7 +265,9 @@ pub fn get_account_by_address(
 ///
 /// **IMPORTANT:** This operation iterates over all accounts in the accounts tree
 /// and thus is extremely computationally expensive.
-pub fn dangerously_get_accounts(client: Client) -> Result(List(Account), String) {
+pub fn dangerously_get_accounts(
+  client: Client,
+) -> Result(List(Account), String) {
   request.new(method: "getAccounts")
   |> request.with_decoder(utils.unwrap_data(decode.list(account.decoder())))
   |> utils.call(client, _)
@@ -285,7 +287,9 @@ pub fn get_validator_by_address(
 }
 
 /// Returns a collection of the currently active validator's addresses and balances.
-pub fn get_active_validators(client: Client) -> Result(List(Validator), String) {
+pub fn get_active_validators(
+  client: Client,
+) -> Result(List(Validator), String) {
   request.new(method: "getActiveValidators")
   |> request.with_decoder(utils.unwrap_data(decode.list(validator.decoder())))
   |> utils.call(client, _)
